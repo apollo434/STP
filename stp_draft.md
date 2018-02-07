@@ -47,12 +47,15 @@ A: The character of port
 
 Q: What's the task of Root port and Specify port?
 
+A: Root port send BPDU. Specify port recieve BPDU
 
 Q: What's temporary loop?
 
+A: Init the STP topology, it will show temporary loop, we use the port status changed to eliminate it.
 
 Q: What's the algorithm the STP used?
 
+A:
 
 Networking Bridge ID & Port ID:
 
@@ -136,5 +139,71 @@ Take a example as a summary:
 
 ![Alt text](/pic/example3.png)
 **update topology**
+
+**NOTE**
+```
+--------------------
+  |
+  | Root Bridge ID
+  | Cost
+  | Bridge ID
+  | Port ID
+  |
+  V
+```
+***
+
+***
+Timer
+
+![Alt text](/pic/bridge_timer.png)
+**Bridge Timer**
+
+![Alt text](/pic/port_timer.png)
+**Port Timer**
+
+**NOTE**
+
+Each Bridge could save two copy Timer:
+1. Administrator configuration
+2. Root Bridge BPDU configuration
+
+Look! Only Root Bridge use itself Timer configuration
+
+![Alt text](/pic/fd_timer_flow.png)
+**Forwarding Delay Timer Flow**
+
+```
+|---------|<------------------------------------------|
+| Disable |<------------------------|                 |
+|---------|<--------|               |                 |
+    ^               |               |                 |
+    |               |               |                 |
+    |               |               |                 |
+|---------|     |---------|      |--------|       |----------|
+| Blocking|---->|Listening|----->|Learning|------>|Forwarding|
+|---------|     |---------|      |--------|       |----------|
+^^   ^^   ^^        ||               ||                ||
+||   ||   ||        ||               ||                ||
+||   ||   ===========                ||                ||
+||   ||                              ||                ||
+||    ================================                 ||
+||                                                     ||
+||                                                     ||
+ =======================================================
+
+-----> protocol determine
+=====> administrator determine
+
+```
+**NOTE**
+--------------------------------------------------------------------------
+Listen ==> Forward Delay Timer ==> send BPDU
+--------------------------------------------------------------------------
+At this point, port can't be used to forward normal data frames. BPDU only
+--------------------------------------------------------------------------
+
+Why we need this status changed above, it is because of the deleting the temporary "LOOP"
+
 
 ***
