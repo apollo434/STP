@@ -12,14 +12,14 @@ A: So far, it is only L2 protocol.
 
 ![Alt text](/pic/L2_toplogy.png)
 
-Q: What is Root Networking Bridge? and what is special Bridge?
+Q: What is Root Networking Bridge? and what is Specify Bridge?
 
 A: Root Networking Bridge
    1. Root Networking Bridge is the only one that can create "BPDU" frame, other ones only transfer the "BPDU".
    2. When the topology changed, the Root Networking Bridge is the only one can make sure that all of the terminal or other Bridge know the actions.
 
-A: Special Bridge
-   1. Which Bridge is the shortest one connected with Root Networking Bridge,which is the special Bridge. Look! the special Bridge describe the LAN scope.
+A: Specify Bridge
+   1. Which Bridge is the shortest one connected with Root Networking Bridge,which is the Specify Bridge. Look! the Specify Bridge describe the LAN scope.
 
    NOTE: the l2 topology could explain it.
 
@@ -40,12 +40,12 @@ A: The status of port
 
 A: The character of port
   1. Root
-  2. Special
+  2. Specify
 
   Note: the l2 topology could explain it
 
 
-Q: What's the task of Root port and special port?
+Q: What's the task of Root port and Specify port?
 
 
 Q: What's temporary loop?
@@ -75,5 +75,30 @@ BPDU: which contain the informations that can determine which one will become Ro
 
 1. Configure BPDU
 2. TCN(Topology Change Notification)
+
+**BPDU version**
+
+![Alt text](/pic/BPDU_vertion.png)
+
+Q: What's time to configure BPDU?
+
+A:
+
+***
+
+***
+Regarding the old BPDU, please check the picture below:
+
+![Alt text](/pic/BPDU_old.png)
+
+Q: How to define the active topology?
+
+A:
+1. Select Root Bridge.
+2. Select a Root port from all of its' in Root Bridge.
+3. Scan all of the port, to allocate Specify Bridge and Specify port
+
+All of the Three steps are named "Configuration Update"
+
 
 ***
