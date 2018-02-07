@@ -205,5 +205,50 @@ At this point, port can't be used to forward normal data frames. BPDU only
 
 Why we need this status changed above, it is because of the deleting the temporary "LOOP"
 
+***
+***
+Topology Change
+
+Q: What's time the topology changed?
+
+A:
+
+1. anti-Forwarding <==> Forwarding Status Changed
+2. Root Bridge ID Changed
+3. Bridge port receive TCN
+
+Shot Aging Timer: In order to inform the Forwarding Database need to be updated.
+
+**NOTE**
+
+If the topology has been changed, the changed information must be informed to all of the Bridge.
+
+The progress:
+1. Probe the Topology Change, and inform it to Root Bridge. (TCN BPDU)
+2. Root Bridge inform all of the Bridge that the topology has been changed. (BPDU with TC flag)
+
+When other Bridge receive the BDPU with TC flag, which will boot up the Short Aging Timer to update the Forwarding Database.
+
+Take an example:
+
+![Alt text](/pic/tcn_bpdu.png)
+**TCN BPDU**
+
+1. A2 <--X--> D1
+2. A2 Change the Root Port, which connect with D2, the status of this port changed: Blocking ==> Forwarding
+3. A2 boot up TCN Timer, then send TCN BPDU from new Root Port to D2
+4. D2 receive the TCN BPDU, then respond TCA BPDU to A2, then boot up TCN Timer in D2, A2 receive the TCA BPDU, then stop TCN Timer.
+5. D2 send TCN BPDU from Root Port to C1, C1 will do the same thing as step 4.
+6. C1 receive the TCN BPDU, then boot up Topology Change Timer(35s), during 35s, C1 will send BPDU with TC flag.
+7. When other Bridge receive the BPDU with TC flag, which will boot up Short Aging Timer. After 35s, the BPDU without TC flag, the Aging Timer boot up again, and stop Short Aging Timer.
+
+***
+
+***
+BPDU Structure.
+
+![Alt text](/pic/bpdu_str.png)
+
+
 
 ***
