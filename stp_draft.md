@@ -100,5 +100,41 @@ A:
 
 All of the Three steps are named "Configuration Update"
 
+The detailed and key informations of each step:
+
+No.1 Select Root Bridge:
+
+If the Bridge ID is not the best one, later, it will receive a configuration BPDU, which contain a better Root Bridge ID, then:
+
+1. Accept this better BPDU, and mark down the key informations(Root Bridge ID and Timer)
+
+2. Accordingly, Update the status and character of each port in this Bridge.
+
+No.2 Select Root Port:
+
+**NOTE**
+1. Only Root Bridge do not has Root Port.
+2. Only anti-Root Bridge do has only one Root Port.
+
+![Alt text](/pic/select_root_port.png)
+
+No.3 Select Specify Port:
+
+**NOTE**
+Each Bridge usually connected with at least one LAN, so, they must know the Specify Port with Each LAN.
+
+![Alt text](/pic/select_specify_port.png)
+
+Take a example as a summary:
+
+
+![Alt text](/pic/example1.png)
+**update cost topology**
+
+![Alt text](/pic/example2.png)
+**add a new Bridge 3**
+
+![Alt text](/pic/example3.png)
+**update topology**
 
 ***
